@@ -581,6 +581,63 @@
             font-weight: 600;
         }
 
+        .payment-method input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 3px solid var(--orange-main);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .delivery-section {
+            margin-bottom: 20px;
+        }
+
+        .delivery-section label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--blue-gi);
+            font-size: 1.2rem;
+        }
+
+        .delivery-section select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 3px solid var(--orange-main);
+            font-size: 1rem;
+            font-weight: 600;
+            background: white;
+        }
+
+        #delivery-address-section {
+            background: rgba(255, 140, 66, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 15px;
+            border: 2px dashed var(--orange-main);
+        }
+
+        #delivery-fee-display {
+            background: linear-gradient(135deg, var(--orange-main) 0%, var(--orange-dark) 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .whatsapp-button {
             background: #25D366;
             color: white;
@@ -762,7 +819,7 @@
                     <p>em compras acima de R$ 90,00</p>
                 </div>
             </div>
-            <p class="delivery-note">💡 A taxa de entrega será calculada no momento do pedido</p>
+            <p class="delivery-note">💡 A taxa será calculada de acordo com a distância do seu endereço</p>
         </div>
 
         <!-- Extras Section -->
@@ -828,6 +885,28 @@
                     <option value="PIX">📱 PIX</option>
                 </select>
             </div>
+
+            <div class="delivery-section">
+                <label for="delivery-type">🏍️ Tipo de Pedido:</label>
+                <select id="delivery-type" onchange="toggleDeliveryAddress()">
+                    <option value="retirada">🏪 Retirar na Loja</option>
+                    <option value="entrega">🏍️ Delivery (Entrega)</option>
+                </select>
+            </div>
+
+            <div id="delivery-address-section" style="display: none;">
+                <div class="payment-method">
+                    <label for="address">🏠 Endereço Completo de Entrega:</label>
+                    <input type="text" id="address" placeholder="Rua, número, bairro, complemento..." />
+                    <small style="color: #666; display: block; margin-top: 5px;">Ex: Rua das Flores, 123, Bairro Centro, Apto 45</small>
+                </div>
+                <div style="background: rgba(43, 93, 158, 0.1); padding: 15px; border-radius: 10px; margin-top: 10px; border: 2px solid var(--blue-gi);">
+                    <p style="color: var(--blue-gi); font-weight: 700; margin: 0; font-size: 0.95rem;">
+                        💡 A taxa de entrega será informada após o envio do pedido, de acordo com a distância.
+                    </p>
+                </div>
+            </div>
+            
             
             <button class="whatsapp-button" onclick="sendToWhatsApp()">
                 📱 ENVIAR PEDIDO PELO WHATSAPP
@@ -1051,6 +1130,21 @@
         ];
 
         let cart = [];
+        let deliveryType = 'retirada';
+
+        // Toggle delivery address section
+        function toggleDeliveryAddress() {
+            deliveryType = document.getElementById('delivery-type').value;
+            const addressSection = document.getElementById('delivery-address-section');
+            
+            if (deliveryType === 'entrega') {
+                addressSection.style.display = 'block';
+            } else {
+                addressSection.style.display = 'none';
+            }
+            
+            updateCart();
+        }
 
         // Create stars
         function createStars() {
@@ -1205,6 +1299,11 @@
                 <div class="cart-total">
                     <h3>TOTAL DO PEDIDO</h3>
                     <div class="total-value">R$ ${total.toFixed(2)}</div>
+                    ${total >= 90 && deliveryType === 'entrega' ? 
+                        '<div style="background: #25D366; padding: 10px; border-radius: 10px; margin-top: 10px; font-size: 0.9rem;">🎉 FRETE GRÁTIS ATIVADO!</div>' : 
+                        deliveryType === 'entrega' ? 
+                        '<div style="background: rgba(255,140,66,0.3); padding: 10px; border-radius: 10px; margin-top: 10px; font-size: 0.85rem;">💡 Taxa de entrega será informada após envio</div>' :
+                        ''}
                 </div>
             `;
         }
@@ -1226,6 +1325,18 @@
             if (cart.length === 0) {
                 alert('Adicione itens ao carrinho primeiro!');
                 return;
+            }
+            
+            const deliveryTypeSelect = document.getElementById('delivery-type').value;
+            
+            // Validate delivery info if delivery is selected
+            if (deliveryTypeSelect === 'entrega') {
+                const address = document.getElementById('address').value.trim();
+                
+                if (!address) {
+                    alert('Por favor, preencha seu endereço completo!');
+                    return;
+                }
             }
             
             const payment = document.getElementById('payment').value;
@@ -1260,16 +1371,26 @@
             }
             
             message += `\n*SUBTOTAL:* R$ ${total.toFixed(2)}\n`;
-            message += `*FORMA DE PAGAMENTO:* ${payment}\n\n`;
             
-            // Check for free delivery
-            if (total >= 90) {
-                message += '🎉 *FRETE GRÁTIS!* Seu pedido passou de R$ 90,00\n\n';
+            // Delivery information
+            if (deliveryTypeSelect === 'entrega') {
+                const address = document.getElementById('address').value;
+                
+                message += '\n*📍 ENDEREÇO DE ENTREGA:*\n';
+                message += `${address}\n`;
+                
+                if (total >= 90) {
+                    message += '\n🎉 *FRETE GRÁTIS!* (Pedido acima de R$ 90,00)\n';
+                } else {
+                    message += '\n⚠️ *Taxa de Entrega:* A calcular conforme distância\n';
+                    message += `💡 _Faltam R$ ${(90 - total).toFixed(2)} para FRETE GRÁTIS!_\n`;
+                }
             } else {
-                message += '⚠️ _Taxa de entrega não incluída (será calculada conforme distância)_\n';
-                message += `💡 _Faltam R$ ${(90 - total).toFixed(2)} para ganhar FRETE GRÁTIS!_\n\n`;
+                message += '\n*🏪 RETIRADA NA LOJA*\n';
+                message += 'R. Oceania, 463 - Tiradentes\n';
             }
             
+            message += `\n*FORMA DE PAGAMENTO:* ${payment}\n\n`;
             message += '_Pedido feito pelo cardápio online_';
             
             // Número do WhatsApp da Guerrero Lanches
