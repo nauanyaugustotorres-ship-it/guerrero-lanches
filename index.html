@@ -349,6 +349,99 @@
             font-size: 1.3rem;
         }
 
+        /* Delivery section */
+        .delivery-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .delivery-item {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            border: 3px solid var(--yellow-power);
+        }
+
+        .delivery-distance {
+            font-weight: 700;
+            color: var(--blue-gi);
+            font-size: 1.2rem;
+        }
+
+        .delivery-price {
+            font-weight: 900;
+            color: var(--red-accent);
+            font-size: 1.5rem;
+            font-family: 'Bangers', cursive;
+        }
+
+        .delivery-note {
+            text-align: center;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            background: rgba(0,0,0,0.3);
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .free-delivery-banner {
+            background: linear-gradient(135deg, #25D366 0%, #20BA5A 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            border: 4px solid white;
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+                transform: scale(1.02);
+            }
+        }
+
+        .free-delivery-icon {
+            font-size: 3rem;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        .free-delivery-text {
+            text-align: left;
+            color: white;
+        }
+
+        .free-delivery-text strong {
+            font-family: 'Bangers', cursive;
+            font-size: 2rem;
+            display: block;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
+        }
+
+        .free-delivery-text p {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 5px 0 0 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
         /* Cart Modal */
         .cart-modal {
             display: none;
@@ -571,6 +664,106 @@
 
         <!-- Menu Items -->
         <div id="menu-container"></div>
+
+        <!-- Drinks Section -->
+        <div class="category">
+            <h2 class="category-title">🥤 BEBIDAS 🥤</h2>
+            <div class="menu-grid">
+                <div class="menu-item" onclick="addDrinkToCart('Coca-Cola Litro', 7.00)">
+                    <div class="item-number">🥤</div>
+                    <h3 class="item-name">Coca-Cola Litro</h3>
+                    <p class="item-ingredients">1 Litro</p>
+                    <div class="item-footer">
+                        <span class="item-price">R$ 7,00</span>
+                        <button class="add-button" onclick="event.stopPropagation(); addDrinkToCart('Coca-Cola Litro', 7.00)">
+                            ADICIONAR
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-item" onclick="addDrinkToCart('Coca-Cola Lata 350ml', 6.00)">
+                    <div class="item-number">🥤</div>
+                    <h3 class="item-name">Coca-Cola Lata</h3>
+                    <p class="item-ingredients">350ml</p>
+                    <div class="item-footer">
+                        <span class="item-price">R$ 6,00</span>
+                        <button class="add-button" onclick="event.stopPropagation(); addDrinkToCart('Coca-Cola Lata 350ml', 6.00)">
+                            ADICIONAR
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-item" onclick="addDrinkToCart('Coca-Cola Lata 310ml', 5.00)">
+                    <div class="item-number">🥤</div>
+                    <h3 class="item-name">Coca-Cola Lata</h3>
+                    <p class="item-ingredients">310ml</p>
+                    <div class="item-footer">
+                        <span class="item-price">R$ 5,00</span>
+                        <button class="add-button" onclick="event.stopPropagation(); addDrinkToCart('Coca-Cola Lata 310ml', 5.00)">
+                            ADICIONAR
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-item" onclick="addDrinkToCart('Coca-Cola Mini', 4.50)">
+                    <div class="item-number">🥤</div>
+                    <h3 class="item-name">Coca-Cola Mini</h3>
+                    <p class="item-ingredients">Lata Mini</p>
+                    <div class="item-footer">
+                        <span class="item-price">R$ 4,50</span>
+                        <button class="add-button" onclick="event.stopPropagation(); addDrinkToCart('Coca-Cola Mini', 4.50)">
+                            ADICIONAR
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-item" onclick="addDrinkToCart('Fanta 2L', 10.00)">
+                    <div class="item-number">🥤</div>
+                    <h3 class="item-name">Fanta 2L</h3>
+                    <p class="item-ingredients">2 Litros</p>
+                    <div class="item-footer">
+                        <span class="item-price">R$ 10,00</span>
+                        <button class="add-button" onclick="event.stopPropagation(); addDrinkToCart('Fanta 2L', 10.00)">
+                            ADICIONAR
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-item" onclick="addDrinkToCart('Coca-Cola 2L', 15.00)">
+                    <div class="item-number">🥤</div>
+                    <h3 class="item-name">Coca-Cola 2L</h3>
+                    <p class="item-ingredients">2 Litros</p>
+                    <div class="item-footer">
+                        <span class="item-price">R$ 15,00</span>
+                        <button class="add-button" onclick="event.stopPropagation(); addDrinkToCart('Coca-Cola 2L', 15.00)">
+                            ADICIONAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delivery Fee Section -->
+        <div class="extras-section">
+            <h2 class="extras-title">🏍️ TAXA DE ENTREGA 🏍️</h2>
+            <div class="delivery-info">
+                <div class="delivery-item">
+                    <span class="delivery-distance">📍 Até 3km</span>
+                    <span class="delivery-price">R$ 5,00</span>
+                </div>
+                <div class="delivery-item">
+                    <span class="delivery-distance">📍 Até 4km</span>
+                    <span class="delivery-price">R$ 7,00</span>
+                </div>
+                <div class="delivery-item">
+                    <span class="delivery-distance">📍 Até 6km</span>
+                    <span class="delivery-price">R$ 10,00</span>
+                </div>
+            </div>
+            <div class="free-delivery-banner">
+                <div class="free-delivery-icon">🎉</div>
+                <div class="free-delivery-text">
+                    <strong>FRETE GRÁTIS</strong>
+                    <p>em compras acima de R$ 90,00</p>
+                </div>
+            </div>
+            <p class="delivery-note">💡 A taxa de entrega será calculada no momento do pedido</p>
+        </div>
 
         <!-- Extras Section -->
         <div class="extras-section">
@@ -943,6 +1136,29 @@
             }, 300);
         }
 
+        // Add drink to cart
+        function addDrinkToCart(name, price) {
+            const drink = {
+                number: 'BEBIDA',
+                name: name,
+                ingredients: 'Bebida',
+                price: price
+            };
+            cart.push(drink);
+            updateCart();
+            
+            // Visual feedback
+            if (event.target.classList.contains('add-button')) {
+                const button = event.target;
+                button.textContent = '✓ ADICIONADO!';
+                button.style.background = '#25D366';
+                setTimeout(() => {
+                    button.textContent = 'ADICIONAR';
+                    button.style.background = '';
+                }, 1000);
+            }
+        }
+
         // Update cart
         function updateCart() {
             const count = document.getElementById('cart-count');
@@ -979,7 +1195,7 @@
                     ${cart.map((item, index) => `
                         <div class="cart-item">
                             <div class="cart-item-info">
-                                <h4>${item.number === 'ADICIONAL' ? '➕ ' : ''}${item.name}</h4>
+                                <h4>${item.number === 'ADICIONAL' ? '➕ ' : item.number === 'BEBIDA' ? '🥤 ' : ''}${item.name}</h4>
                                 <p class="cart-item-price">R$ ${item.price.toFixed(2)}</p>
                             </div>
                             <button class="remove-item" onclick="removeFromCart(${index})">×</button>
@@ -1016,15 +1232,25 @@
             const total = cart.reduce((sum, item) => sum + item.price, 0);
             
             let message = '🍔 *NOVO PEDIDO - GUERRERO LANCHES* 🍔\n\n';
-            message += '*ITENS DO PEDIDO:*\n';
             
-            // Separate regular items and extras
-            const regularItems = cart.filter(item => item.number !== 'ADICIONAL');
+            // Separate items by type
+            const regularItems = cart.filter(item => item.number !== 'ADICIONAL' && item.number !== 'BEBIDA');
+            const drinkItems = cart.filter(item => item.number === 'BEBIDA');
             const extraItems = cart.filter(item => item.number === 'ADICIONAL');
             
-            regularItems.forEach((item, index) => {
-                message += `${index + 1}. ${item.name} - R$ ${item.price.toFixed(2)}\n`;
-            });
+            if (regularItems.length > 0) {
+                message += '*LANCHES:*\n';
+                regularItems.forEach((item, index) => {
+                    message += `${index + 1}. ${item.name} - R$ ${item.price.toFixed(2)}\n`;
+                });
+            }
+            
+            if (drinkItems.length > 0) {
+                message += '\n*BEBIDAS:*\n';
+                drinkItems.forEach((item) => {
+                    message += `🥤 ${item.name} - R$ ${item.price.toFixed(2)}\n`;
+                });
+            }
             
             if (extraItems.length > 0) {
                 message += '\n*ADICIONAIS:*\n';
@@ -1033,8 +1259,17 @@
                 });
             }
             
-            message += `\n*TOTAL:* R$ ${total.toFixed(2)}\n`;
+            message += `\n*SUBTOTAL:* R$ ${total.toFixed(2)}\n`;
             message += `*FORMA DE PAGAMENTO:* ${payment}\n\n`;
+            
+            // Check for free delivery
+            if (total >= 90) {
+                message += '🎉 *FRETE GRÁTIS!* Seu pedido passou de R$ 90,00\n\n';
+            } else {
+                message += '⚠️ _Taxa de entrega não incluída (será calculada conforme distância)_\n';
+                message += `💡 _Faltam R$ ${(90 - total).toFixed(2)} para ganhar FRETE GRÁTIS!_\n\n`;
+            }
+            
             message += '_Pedido feito pelo cardápio online_';
             
             // Número do WhatsApp da Guerrero Lanches
